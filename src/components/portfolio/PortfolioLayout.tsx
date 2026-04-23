@@ -1,8 +1,11 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import { getTheme, toggleTheme, type ThemeMode } from '../../lib/theme'
 import { profile } from '../../content/portfolio/profile'
+import { ProgressiveImage } from '../ProgressiveImage'
+import heroPortrait from '../../assets/hero-portrait.png'
+import { HeaderPortraitProvider } from './headerPortrait'
 
 type NavItem = { to: string; label: string }
 
@@ -68,7 +71,7 @@ function DesktopNav() {
 
 function MobileNav() {
   return (
-    <nav className="glass fixed inset-x-4 bottom-4 z-50 md:hidden">
+    <nav className="glass fixed inset-x-4 bottom-4 z-50 overflow-hidden rounded-3xl md:hidden">
       <div className="flex items-center justify-between gap-2 px-2 py-2">
         {navItems.slice(0, 5).map((item) => (
           <NavLink
@@ -165,36 +168,65 @@ function ScrollToTopOnNavigate() {
 export function PortfolioLayout() {
   const location = useLocation()
   const key = useMemo(() => location.pathname, [location.pathname])
+  const { scrollY } = useScroll()
+  const reduceMotion = useReducedMotion()
+  const [portraitInHeader, setPortraitInHeader] = useState(false)
+
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    // Threshold is tuned to the home hero; safe default elsewhere.
+    setPortraitInHeader(location.pathname === '/' && y > 180)
+  })
 
   return (
     <div className="min-h-dvh">
       <div className="absolute inset-0 -z-10 mesh opacity-90" />
       <div className="absolute inset-0 -z-20 grid-dots opacity-55" />
 
-      <header className="sticky top-0 z-40">
-        <div className="mx-auto w-full max-w-6xl px-4 pt-4">
-          <div className="glass flex items-center justify-between gap-4 rounded-3xl px-4 py-3">
-            <NavLink to="/" className="flex items-center gap-2">
-              <div className="grid h-9 w-9 place-items-center rounded-2xl bg-[color-mix(in_oklch,var(--color-primary-2),transparent_80%)] text-sm font-black tracking-tight">
-                {profile.initials}
-              </div>
-              <div className="leading-tight">
-                <div className="text-sm font-semibold tracking-tight">{profile.name}</div>
-                <div className="text-xs text-muted">{profile.headline}</div>
-              </div>
-            </NavLink>
-            <DesktopNav />
-            <ThemeToggle />
+      <HeaderPortraitProvider inHeader={portraitInHeader}>
+        <header className="sticky top-[calc(env(safe-area-inset-top)+0.75rem)] z-40">
+          <div className="mx-auto w-full max-w-6xl px-4 pt-4">
+            <div className="glass flex items-center justify-between gap-4 rounded-3xl px-4 py-3">
+              <NavLink to="/" className="flex items-center gap-2">
+                <div className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full bg-[color-mix(in_oklch,var(--color-primary-2),transparent_80%)] text-sm font-black leading-none tracking-tight">
+                  {portraitInHeader ? (
+                    <motion.div
+                      layoutId="hero-portrait-fly"
+                      className="absolute inset-0"
+                      transition={
+                        reduceMotion ? undefined : { type: 'spring', stiffness: 520, damping: 46 }
+                      }
+                    >
+                      <ProgressiveImage
+                        src={heroPortrait}
+                        alt={profile.portraitAlt}
+                        wrapperClassName="h-full w-full"
+                        imgClassName="h-full w-full object-cover object-top"
+                        decoding="async"
+                        loading="eager"
+                      />
+                    </motion.div>
+                  ) : (
+                    profile.initials
+                  )}
+                </div>
+                <div className="leading-tight">
+                  <div className="text-sm font-semibold tracking-tight">{profile.name}</div>
+                  <div className="text-xs text-muted">{profile.headline}</div>
+                </div>
+              </NavLink>
+              <DesktopNav />
+              <ThemeToggle />
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <AnimatePresence mode="wait">
-        <div key={key} className="mx-auto w-full max-w-6xl px-4 pb-24 pt-8">
-          <Outlet />
-          <Footer />
-        </div>
-      </AnimatePresence>
+        <AnimatePresence mode="wait">
+          <div key={key} className="mx-auto w-full max-w-6xl px-4 pb-24 pt-8">
+            <Outlet />
+            <Footer />
+          </div>
+        </AnimatePresence>
+      </HeaderPortraitProvider>
 
       <MobileNav />
       <ScrollToTopOnNavigate />

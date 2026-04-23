@@ -3,10 +3,12 @@ import { NavLink } from 'react-router-dom'
 import { Page, Reveal, Stagger, StaggerItem } from '../../components/portfolio/motion'
 import { CountUp } from '../../components/portfolio/CountUp'
 import { Pipeline } from '../../components/portfolio/Pipeline'
+import { ProgressiveImage } from '../../components/ProgressiveImage'
 import { profile } from '../../content/portfolio/profile'
 import { stackCollapsibles } from '../../content/portfolio/techStacks'
 import { StackCollapsibleList } from '../../components/portfolio/StackCollapsibleList'
 import heroPortrait from '../../assets/hero-portrait.png'
+import { useHeaderPortrait } from '../../components/portfolio/headerPortrait'
 
 const nowChips = profile.positioning.niches
 
@@ -50,6 +52,7 @@ const accentFromKey = (k: ValueProp['key']) => {
 
 function HeroPortrait() {
   const reduce = useReducedMotion()
+  const { inHeader } = useHeaderPortrait()
 
   return (
     <motion.div
@@ -72,14 +75,21 @@ function HeroPortrait() {
       >
         <div className="relative overflow-hidden rounded-[calc(2rem-1px)] bg-card">
           <div className="relative aspect-[3.2/4] w-full sm:aspect-[3.4/4]">
-            <img
-              src={heroPortrait}
-              alt={profile.portraitAlt}
-              className="h-full w-full object-cover object-top"
-              loading="eager"
-              decoding="async"
-              sizes="(min-width: 1024px) 42vw, 90vw"
-            />
+            <motion.div
+              layoutId={inHeader ? undefined : 'hero-portrait-fly'}
+              className="h-full w-full"
+              transition={reduce ? undefined : { type: 'spring', stiffness: 520, damping: 46 }}
+            >
+              <ProgressiveImage
+                src={heroPortrait}
+                alt={profile.portraitAlt}
+                wrapperClassName="h-full w-full"
+                imgClassName="h-full w-full object-cover object-top"
+                loading="eager"
+                decoding="async"
+                sizes="(min-width: 1024px) 42vw, 90vw"
+              />
+            </motion.div>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-bg/90 via-bg/20 to-transparent pt-20 pb-4 px-5 sm:px-6">
@@ -433,12 +443,39 @@ export default function LandingPage() {
           <Pipeline />
         </Reveal>
         <Reveal delay={0.06}>
-          <div className="flex h-full flex-col rounded-3xl border border-border/60 bg-card/40 p-5 sm:p-6">
-            <div>
-              <h2 className="text-sm font-semibold">How I ship</h2>
-              <p className="mt-1 text-xs text-muted">Defaults for real client work.</p>
+          <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-border/60 bg-card/40 p-5 sm:p-6">
+            <div
+              className="pointer-events-none absolute inset-0 opacity-75"
+              style={{
+                background:
+                  'radial-gradient(70% 65% at 0% 10%, color-mix(in oklch, var(--color-accent), transparent 88%), transparent 60%), radial-gradient(70% 60% at 100% 0%, color-mix(in oklch, var(--color-primary), transparent 88%), transparent 55%)',
+              }}
+            />
+
+            <div className="relative flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="mt-0.5 inline-flex h-2 w-2 shrink-0 rounded-full"
+                    style={{ background: 'var(--color-accent)' }}
+                  />
+                  <h2 className="text-sm font-semibold">How I ship</h2>
+                </div>
+                <p className="mt-1 text-xs text-muted">Defaults for real client work.</p>
+              </div>
+              <div className="hidden rounded-full border border-border/60 bg-bg/40 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:block">
+                Low drama
+              </div>
             </div>
-            <ol className="mt-4 flex flex-1 flex-col gap-3 text-sm">
+
+            <ol className="relative mt-5 flex flex-1 flex-col gap-3 text-sm">
+              <div
+                className="pointer-events-none absolute left-[15px] top-1 bottom-1 hidden w-px sm:block"
+                style={{
+                  background:
+                    'linear-gradient(180deg, transparent, color-mix(in oklch, var(--color-border), transparent 15%), transparent)',
+                }}
+              />
               {[
                 {
                   t: 'Clarify the goal',
@@ -449,15 +486,27 @@ export default function LandingPage() {
                   t: 'Make it trustable',
                   d: 'Security-minded Firebase rules, error states, and perf checks pre-release.',
                 },
-              ].map((step) => (
-                <li
-                  key={step.t}
-                  className="rounded-2xl border border-border/50 bg-bg/40 p-4"
-                >
-                  <div className="text-xs font-semibold" style={{ color: `var(--color-accent)` }}>
-                    {step.t}
+              ].map((step, idx) => (
+                <li key={step.t} className="group relative flex gap-3">
+                  <div className="hidden sm:flex w-8 flex-col items-center pt-1.5">
+                    <span
+                      className="relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full border border-border/70 bg-card font-mono text-[10px] font-bold tabular-nums transition group-hover:-translate-y-0.5"
+                      style={{
+                        boxShadow:
+                          idx === 0
+                            ? '0 0 0 4px color-mix(in oklch, var(--color-accent), transparent 88%)'
+                            : undefined,
+                      }}
+                    >
+                      {idx + 1}
+                    </span>
                   </div>
-                  <div className="mt-1 text-muted leading-relaxed">{step.d}</div>
+                  <div className="min-w-0 flex-1 rounded-2xl border border-border/55 bg-bg/40 p-4 transition will-change-transform hover:-translate-y-0.5 hover:bg-bg/55">
+                    <div className="text-xs font-semibold" style={{ color: `var(--color-accent)` }}>
+                      {step.t}
+                    </div>
+                    <div className="mt-1 text-muted leading-relaxed">{step.d}</div>
+                  </div>
                 </li>
               ))}
             </ol>
