@@ -8,8 +8,20 @@ import SkillsPage from './routes/portfolio/SkillsPage'
 import LabsPage from './routes/portfolio/LabsPage'
 import ContactPage from './routes/portfolio/ContactPage'
 import NotFoundPage from './routes/portfolio/NotFoundPage'
+import ProjectsShowcasePage from './routes/ProjectsShowcasePage'
+import { isProjectsShowcaseHost } from './lib/projectsShowcaseHost'
 
 export default function App() {
+  if (isProjectsShowcaseHost()) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<ProjectsShowcasePage />} />
+        </Routes>
+      </BrowserRouter>
+    )
+  }
+
   return (
     <BrowserRouter>
       <Routes>

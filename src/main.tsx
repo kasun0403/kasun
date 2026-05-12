@@ -2,9 +2,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { initTheme } from './lib/theme'
+import { applyTheme, initTheme } from './lib/theme'
+import { isProjectsShowcaseHost } from './lib/projectsShowcaseHost'
 
-initTheme()
+if (isProjectsShowcaseHost()) {
+  applyTheme('light')
+} else {
+  initTheme()
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

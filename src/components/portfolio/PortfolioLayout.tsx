@@ -6,6 +6,7 @@ import { profile } from '../../content/portfolio/profile'
 import { ProgressiveImage } from '../ProgressiveImage'
 import heroPortrait from '../../assets/hero-portrait.png'
 import { HeaderPortraitProvider } from './headerPortrait'
+import { projectsShowcaseOrigin } from '../../lib/projectsShowcaseHost'
 
 type NavItem = { to: string; label: string }
 
@@ -141,6 +142,9 @@ function Footer() {
             <a className="hover:text-fg" href={profile.links.linkedin}>
               LinkedIn
             </a>
+            <a className="hover:text-fg" href={projectsShowcaseOrigin} target="_blank" rel="noopener noreferrer">
+              Live demos
+            </a>
           </div>
         </div>
       </div>
@@ -215,7 +219,18 @@ export function PortfolioLayout() {
                 </div>
               </NavLink>
               <DesktopNav />
-              <ThemeToggle />
+              <div className="flex shrink-0 items-center gap-2">
+                <a
+                  href={projectsShowcaseOrigin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full px-3 py-2 text-sm font-semibold text-fg ring-1 ring-border/80 transition hover:bg-[color-mix(in_oklch,var(--color-card),transparent_10%)]"
+                >
+                  <span className="hidden sm:inline">Live demos</span>
+                  <span className="sm:hidden">Demos</span>
+                </a>
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </header>
