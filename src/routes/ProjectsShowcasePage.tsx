@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { CollapsibleSection, MarketingSubFold } from '../components/projectsShowcase/CollapsibleSection'
 import { ShowcaseDemoSlideDeck } from '../components/projectsShowcase/ShowcaseDemoSlideDeck'
 import { showcaseDemos } from '../content/projectsShowcaseDemos'
 import {
   capabilityStrip,
   consultationCta,
+  deliveryAndHandover,
   industryChips,
   marketingHeadline,
   valuePillars,
@@ -42,7 +44,13 @@ export default function ProjectsShowcasePage() {
         }}
       />
 
-      <header className="relative mx-auto flex max-w-6xl flex-col gap-6 px-5 pb-10 pt-14 sm:px-8 sm:pt-20">
+      <header className="relative w-full px-4 pb-6 pt-14 sm:px-6 sm:pt-20 lg:px-10 xl:px-14">
+        <CollapsibleSection
+          title="Introduction"
+          subtitle="Availability, what this page is for, and quick ways to reach out"
+          defaultOpen
+        >
+          <div className="flex flex-col gap-6 pt-2">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,7 +70,7 @@ export default function ProjectsShowcasePage() {
           <h1 className="text-balance text-4xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
             Polished, production‑style demos you can click through today.
           </h1>
-          <p className="max-w-3xl text-pretty text-lg leading-relaxed text-slate-800 sm:text-xl">
+          <p className="max-w-[min(100%,52rem)] text-pretty text-lg leading-relaxed text-slate-800 sm:text-xl lg:max-w-none">
             These are live interfaces I ship with React and TypeScript: clear UX, credible commerce flows, and polish
             that wins trust. If you want something similar for your brand, say hello—I typically reply{' '}
             {profile.replyTimeLabel}.
@@ -98,18 +106,26 @@ export default function ProjectsShowcasePage() {
             Full portfolio site
           </a>
         </motion.div>
+          </div>
+        </CollapsibleSection>
       </header>
 
-      <main className="relative mx-auto max-w-6xl space-y-14 px-5 pb-24 sm:px-8">
-        <motion.section
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.45 }}
-          aria-labelledby="what-we-build-heading"
-          className="overflow-hidden rounded-3xl border-2 border-teal-500/25 bg-gradient-to-br from-slate-950 via-slate-900 to-teal-950 p-6 text-white shadow-[0_28px_90px_-40px_rgba(15,118,110,0.45)] sm:p-10"
+      <main className="relative w-full space-y-14 px-4 pb-24 sm:px-6 lg:px-10 xl:px-14">
+        <CollapsibleSection
+          variant="dark"
+          title="What we build & how we deliver"
+          subtitle="Custom apps, handover, industries, and why teams work with me"
+          defaultOpen
         >
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.45 }}
+            className="space-y-6"
+          >
+            <MarketingSubFold title="Overview, mission & service flyer">
+              <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div className="space-y-5">
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-teal-200/90">What we build</p>
               <h2 id="what-we-build-heading" className="text-balance text-3xl font-black tracking-tight sm:text-4xl">
@@ -118,7 +134,9 @@ export default function ProjectsShowcasePage() {
               <p lang="si" className="text-lg font-semibold leading-relaxed text-slate-200">
                 {marketingHeadline.sinhala}
               </p>
-              <p className="max-w-xl text-pretty text-base leading-relaxed text-slate-300/95">{marketingHeadline.mission}</p>
+              <p className="max-w-xl text-pretty text-base leading-relaxed text-slate-300/95 lg:max-w-3xl xl:max-w-4xl">
+                {marketingHeadline.mission}
+              </p>
               <div className="flex flex-wrap gap-2 pt-1">
                 {capabilityStrip.map((label) => (
                   <span
@@ -145,7 +163,7 @@ export default function ProjectsShowcasePage() {
                 </span>
               </a>
             </div>
-            <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="relative w-full max-w-md lg:max-w-none">
               <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-2 shadow-2xl ring-1 ring-white/10 backdrop-blur-sm">
                 <img
                   src="/showcase/service-flyer.png"
@@ -156,9 +174,20 @@ export default function ProjectsShowcasePage() {
                 />
               </div>
             </div>
-          </div>
+              </div>
+            </MarketingSubFold>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <MarketingSubFold title="Handover & first three months">
+              <div className="rounded-2xl border border-teal-400/35 bg-teal-500/10 p-5 backdrop-blur-sm sm:p-6">
+            <h3 className="text-sm font-bold uppercase tracking-wide text-teal-100">{deliveryAndHandover.title}</h3>
+            <p className="mt-3 max-w-4xl text-sm leading-relaxed text-slate-200 sm:text-base xl:max-w-5xl">
+              {deliveryAndHandover.body}
+            </p>
+              </div>
+            </MarketingSubFold>
+
+            <MarketingSubFold title="Core value pillars">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {valuePillars.map((pillar) => (
               <div
                 key={pillar.title}
@@ -168,11 +197,13 @@ export default function ProjectsShowcasePage() {
                 <p className="mt-2 text-sm leading-relaxed text-slate-300/95">{pillar.body}</p>
               </div>
             ))}
-          </div>
+              </div>
+            </MarketingSubFold>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-black/20 p-5 backdrop-blur-sm sm:p-6">
+            <MarketingSubFold title="Industries we serve">
+              <div className="rounded-2xl border border-white/10 bg-black/20 p-5 backdrop-blur-sm sm:p-6">
             <h3 className="text-sm font-bold uppercase tracking-wide text-teal-100/95">Solutions for every industry</h3>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-300/90">
+            <p className="mt-2 max-w-4xl text-sm leading-relaxed text-slate-300/90 xl:max-w-5xl">
               Small businesses use the same foundations: bookings, catalogs, payments, and simple admin dashboards. If
               you see your category below, the demos further down show what the customer‑facing experience can feel like.
             </p>
@@ -186,22 +217,31 @@ export default function ProjectsShowcasePage() {
                 </li>
               ))}
             </ul>
-          </div>
+              </div>
+            </MarketingSubFold>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            <MarketingSubFold title="Why choose us">
+              <div className="grid gap-4 md:grid-cols-2">
             {whyChooseUs.map((item) => (
               <div key={item.title} className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
                 <h3 className="text-base font-bold text-white">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-300/95">{item.body}</p>
               </div>
             ))}
-          </div>
-        </motion.section>
+              </div>
+            </MarketingSubFold>
+          </motion.div>
+        </CollapsibleSection>
 
-        <section aria-label="Live demos" className="space-y-6">
+        <CollapsibleSection
+          title="Live demos"
+          subtitle="Mobile, desktop, and full write-up for each project—slide between tabs"
+          defaultOpen
+        >
+        <section aria-label="Live demos" className="space-y-6 pt-2">
           <div className="space-y-2">
             <h2 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">Live demos (slide views)</h2>
-            <p className="max-w-3xl text-base leading-relaxed text-slate-800">
+            <p className="max-w-4xl text-base leading-relaxed text-slate-800 xl:max-w-6xl">
               Each project has one preview area with tabs: <span className="font-semibold">Mobile</span>,{' '}
               <span className="font-semibold">Desktop</span>, and <span className="font-semibold">Details</span>. Tap a
               tab and the view <span className="font-semibold">slides</span> horizontally. Desktop opens first so
@@ -227,12 +267,15 @@ export default function ProjectsShowcasePage() {
             ))}
           </div>
         </section>
+        </CollapsibleSection>
 
-        <section
-          aria-label="Contact"
-          className="rounded-3xl border border-teal-200/70 bg-white/95 p-8 shadow-[0_20px_60px_-40px_rgba(15,118,110,0.15)] backdrop-blur-md sm:p-10"
+        <CollapsibleSection
+          title="Get in touch"
+          subtitle="Email, LinkedIn, or WhatsApp—tell me what you want to build"
+          defaultOpen
         >
-          <div className="mx-auto max-w-2xl space-y-4 text-center">
+          <section aria-label="Contact" className="pt-2">
+            <div className="mx-auto w-full max-w-4xl space-y-4 text-center lg:max-w-5xl">
             <h2 className="text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Let’s build your next system.</h2>
             <p className="text-base leading-relaxed text-slate-800 sm:text-lg">
               Share your business type, what you sell or book, and what feels messy today. I’ll reply with a simple
@@ -262,11 +305,12 @@ export default function ProjectsShowcasePage() {
                 WhatsApp
               </a>
             </div>
-          </div>
-        </section>
+            </div>
+          </section>
+        </CollapsibleSection>
       </main>
 
-      <footer className="relative border-t border-teal-200/50 bg-white/70 py-8 text-center text-sm text-slate-600 backdrop-blur-sm">
+      <footer className="relative w-full border-t border-teal-200/50 bg-white/70 px-4 py-8 text-center text-sm text-slate-600 backdrop-blur-sm sm:px-6 lg:px-10">
         <p>
           © {new Date().getFullYear()} {profile.name}. Crafted for{' '}
           <span className="font-semibold text-slate-900">projects.kasuntharanga.com</span>.

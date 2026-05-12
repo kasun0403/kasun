@@ -282,7 +282,7 @@ export function ShowcaseDemoSlideDeck({ demo, index, waHref }: ShowcaseDemoSlide
               .join(' ')}
           >
             <div className="max-h-[78vh] min-h-[380px] flex-1 overflow-y-auto overscroll-contain px-5 py-6 sm:min-h-[420px] sm:px-8 sm:py-8 lg:min-h-[460px]">
-              <div className="mx-auto max-w-3xl space-y-6">
+              <div className="mx-auto max-w-5xl space-y-6 xl:max-w-7xl 2xl:max-w-[90rem]">
                 <header className="space-y-2 border-b border-teal-100 pb-4">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-700">About this demo</p>
                   <h3 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">{demo.title}</h3>

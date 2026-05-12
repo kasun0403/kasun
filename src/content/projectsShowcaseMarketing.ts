@@ -52,6 +52,14 @@ export const whyChooseUs: WhyUsPoint[] = [
     body: 'Milestones you can see: discovery, design, build, launch, and a sensible buffer for fixes.',
   },
   {
+    title: 'Full handover after development',
+    body: 'When the build is complete you receive the full codebase and everything needed to run and extend it—repository access, deployment configuration, environment notes, and a walkthrough so you are not left with a black box.',
+  },
+  {
+    title: 'Three months of free revisions',
+    body: 'For the first three months after go‑live, refinements, adjustments, and reasonable change requests are included at no extra charge so you can tune the live product with your real customers and staff.',
+  },
+  {
     title: 'Ongoing support',
     body: 'Help after launch for tweaks, training, small improvements, and when your business changes.',
   },
@@ -71,4 +79,10 @@ export const capabilityStrip = [
 export const consultationCta = {
   line: 'Get a free project consultation and walkthrough of a live demo.',
   sinhalaConnect: 'අප හා අදම සම්බන්ධ වන්න',
+} as const
+
+/** Shown in the hero: handover + post-launch window (align with contract in proposals). */
+export const deliveryAndHandover = {
+  title: 'Handover & your first three months',
+  body: 'When development is complete you receive the full codebase and everything needed to own the product—repository access, deployment configuration, environment notes, and a proper walkthrough. For the first three months after go‑live, reasonable revisions and changes are included at no extra charge while you tune the system with real customers and staff.',
 } as const
