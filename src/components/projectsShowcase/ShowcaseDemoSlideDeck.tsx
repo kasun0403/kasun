@@ -48,6 +48,39 @@ function ClientBulletedSection({ title, items }: { title: string; items: string[
   )
 }
 
+function DemoBusinessFitHeader({ demo }: { demo: ShowcaseDemo }) {
+  return (
+    <header className="border-b border-teal-200/70 bg-gradient-to-br from-teal-50 via-white to-sky-50/80 px-4 py-5 sm:px-6 sm:py-6">
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-800">What business suits this demo</p>
+      <h2 className="mt-2 text-xl font-black tracking-tight text-slate-950 sm:text-2xl">{demo.title}</h2>
+      <p className="mt-2 text-sm font-semibold leading-snug text-teal-900 sm:text-base">{demo.tagline}</p>
+      <div className="mt-4">
+        <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Industries and use cases</p>
+        <ul className="mt-2 flex list-none flex-wrap gap-2 p-0">
+          {demo.clientSheet.flyerIndustryFit.map((label) => (
+            <li key={label}>
+              <span className="inline-block rounded-full border border-teal-300/80 bg-teal-100/80 px-3 py-1 text-xs font-semibold text-teal-950">
+                {label}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-4">
+        <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Good fit if you…</p>
+        <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800">
+          {demo.clientSheet.perfectForYouIf.map((line) => (
+            <li key={line} className="flex gap-2 pl-0.5">
+              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-teal-500" aria-hidden />
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </header>
+  )
+}
+
 type ShowcaseDemoSlideDeckProps = {
   demo: ShowcaseDemo
   /** First card loads desktop iframe eagerly */
@@ -76,6 +109,7 @@ export function ShowcaseDemoSlideDeck({ demo, index, waHref }: ShowcaseDemoSlide
 
   return (
     <div className="rounded-2xl border border-teal-200/80 bg-white/95 shadow-inner ring-1 ring-teal-950/5">
+      <DemoBusinessFitHeader demo={demo} />
       <div
         role="tablist"
         aria-label={`${demo.title} preview mode`}
@@ -127,19 +161,19 @@ export function ShowcaseDemoSlideDeck({ demo, index, waHref }: ShowcaseDemoSlide
             aria-labelledby={`${baseId}-tab-mobile`}
             aria-hidden={tab !== 'mobile'}
             className={[
-              'flex w-1/3 shrink-0 flex-col items-center justify-start bg-gradient-to-b from-slate-200/75 via-slate-50 to-teal-50/40 px-2 py-6 sm:px-4',
+              'flex w-1/3 shrink-0 flex-col items-center justify-start bg-gradient-to-b from-slate-200/75 via-slate-50 to-teal-50/40',
               'min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]',
               tab !== 'mobile' ? 'pointer-events-none' : '',
             ]
               .filter(Boolean)
               .join(' ')}
           >
-            <p className="mb-4 max-w-md px-2 text-center text-xs leading-relaxed text-slate-600">
+            <p className="mb-4 mt-4 max-w-md px-2 text-center text-xs leading-relaxed text-slate-600 sm:px-4">
               Phone-sized frame ({MOBILE_VIEWPORT_W}px) so the demo uses its{' '}
               <span className="font-semibold text-slate-800">mobile</span> layout.
             </p>
             {visited.mobile ? (
-              <div className="w-full overflow-x-auto pb-2 [-webkit-overflow-scrolling:touch]">
+              <div className="w-full overflow-x-auto px-2 pb-4 [-webkit-overflow-scrolling:touch] sm:px-4">
                 <div
                   className="mx-auto shrink-0 rounded-[2.35rem] border-[10px] border-slate-800 bg-slate-800 p-1 shadow-xl ring-1 ring-white/10"
                   style={{ width: MOBILE_VIEWPORT_W + 8 }}
@@ -180,7 +214,7 @@ export function ShowcaseDemoSlideDeck({ demo, index, waHref }: ShowcaseDemoSlide
               .filter(Boolean)
               .join(' ')}
           >
-            <p className="mx-auto mb-2 max-w-lg px-3 pt-4 text-center text-xs leading-relaxed text-slate-600 sm:mb-3 sm:pt-5">
+            <p className="mx-auto mb-2 max-w-lg px-3 pt-4 text-center text-xs leading-relaxed text-slate-600 sm:mb-3 sm:px-4 sm:pt-5">
               <span className="font-semibold text-slate-800">Full desktop size</span> ({DESKTOP_IFRAME_W}×{DESKTOP_IFRAME_H}
               px)—not shrunk to your phone. On a small screen,{' '}
               <span className="font-semibold text-slate-800">scroll sideways and vertically</span> to explore the whole
@@ -249,8 +283,8 @@ export function ShowcaseDemoSlideDeck({ demo, index, waHref }: ShowcaseDemoSlide
           >
             <div className="max-h-[78vh] min-h-[380px] flex-1 overflow-y-auto overscroll-contain px-5 py-6 sm:min-h-[420px] sm:px-8 sm:py-8 lg:min-h-[460px]">
               <div className="mx-auto max-w-3xl space-y-6">
-                <header className="space-y-2 border-b border-teal-100 pb-5">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-700">Details — for your business</p>
+                <header className="space-y-2 border-b border-teal-100 pb-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-700">About this demo</p>
                   <h3 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">{demo.title}</h3>
                   <p className="text-base font-semibold text-slate-800">{demo.tagline}</p>
                   <p className="text-sm font-medium text-teal-900/90">{demo.summary}</p>
