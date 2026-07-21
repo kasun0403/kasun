@@ -6,7 +6,7 @@ export const profile = {
   /** Alt text for the home hero portrait (professional headshot). */
   portraitAlt:
     'Kasun Tharanga Dilshan — professional portrait in a dark suit with a white shirt and university tie, facing the camera',
-  headline: 'Web: React, TypeScript, Vite, Tailwind, Capacitor, Firebase · Flutter',
+  headline: 'Software engineer · Web & mobile',
   location: 'Bandarawela, Sri Lanka',
   address: 'Bandarawela, Sri Lanka',
   phone: '+94 77 3068 777',
