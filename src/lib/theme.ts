@@ -2,10 +2,6 @@ export type ThemeMode = 'light' | 'dark'
 
 const STORAGE_KEY = 'kasun:theme'
 
-function getSystemTheme(): ThemeMode {
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
 export function getStoredTheme(): ThemeMode | null {
   const raw = window.localStorage.getItem(STORAGE_KEY)
   if (raw === 'light' || raw === 'dark') return raw
@@ -13,7 +9,7 @@ export function getStoredTheme(): ThemeMode | null {
 }
 
 export function getTheme(): ThemeMode {
-  return getStoredTheme() ?? getSystemTheme()
+  return getStoredTheme() ?? 'light'
 }
 
 export function applyTheme(theme: ThemeMode) {
