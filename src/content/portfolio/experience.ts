@@ -3,57 +3,91 @@ export type WorkExperienceItem = {
   company: string
   companyUrl?: string
   range: string
-  /** e.g. Part-time, Intern */
+  location?: string
   note?: string
+  summary?: string
   bullets: string[]
+  technologies?: string[]
 }
 
+/** Verified professional history from existing portfolio / CV content. */
 export const workExperience: WorkExperienceItem[] = [
   {
-    title: 'Web project support',
-    company: 'Builtapps',
-    range: '2025–present',
+    title: 'Freelance Developer',
+    company: 'Independent',
+    range: 'Oct 2025 – Present',
+    summary:
+      'Helping build web applications and Capacitor mobile apps, and shipping them to the App Store and Play Store.',
     bullets: [
-      'Supporting custom software and web projects at Builtapps, alongside the team across different areas.',
+      'Help develop web applications and mobile applications using Capacitor.',
+      'Deploy releases to the App Store and Play Store.',
     ],
+    technologies: ['Capacitor', 'React', 'TypeScript', 'App Store', 'Play Store'],
+  },
+  {
+    title: 'Web Project Support',
+    company: 'Builtapps',
+    range: '2025 – Present',
+    location: 'Sri Lanka',
+    summary:
+      'Supporting custom software and web projects alongside the Builtapps team across product and delivery work.',
+    bullets: [
+      'Contributing to custom software and web projects with the engineering team.',
+      'Supporting implementation, iteration, and delivery across different project areas.',
+    ],
+    technologies: ['React', 'TypeScript', 'Firebase', 'Web applications'],
   },
   {
     title: 'Flutter Developer',
-    company: 'Gomi‑Map',
+    company: 'Gomi-Map',
     range: 'Aug 2025 – Sept 2025',
     note: 'Part-time',
+    summary:
+      'Developed and maintained mobile application features for a location-based Flutter product.',
     bullets: [
-      'Developed and maintained mobile application features using Flutter.',
-      'Collaborated with the Gomi‑Map team on app design and improvements.',
+      'Shipped mobile features in small, reviewable increments.',
+      'Collaborated with the team on design and usability improvements.',
+      'Addressed stability issues on critical paths before polish work.',
     ],
+    technologies: ['Flutter', 'Dart', 'REST APIs'],
   },
   {
-    title: 'Mobile Application Developer (Flutter)',
+    title: 'Mobile Application Developer',
     company: 'Digital Yogin',
     range: 'Jan 2023 – May 2023',
+    summary:
+      'Built feature-rich Flutter applications with API integrations and Firebase-backed data flows.',
     bullets: [
-      'Developed feature-rich, user-friendly mobile applications using Flutter.',
-      'Integrated APIs and implemented Firebase for real-time data handling and authentication.',
-      'Collaborated with cross-functional teams to improve app performance and usability.',
+      'Developed user-friendly mobile applications using Flutter.',
+      'Integrated APIs and Firebase for authentication and real-time data handling.',
+      'Collaborated with cross-functional teams to improve performance and usability.',
     ],
+    technologies: ['Flutter', 'Dart', 'Firebase', 'REST APIs'],
   },
   {
-    title: 'Associate Software Engineer (Mobile – Flutter)',
+    title: 'Associate Software Engineer',
     company: 'Zeebo Holdings',
     range: 'Jan 2022 – Dec 2022',
+    note: 'Mobile – Flutter',
+    summary:
+      'Contributed to production Flutter features with a focus on APIs, maps, and performance.',
     bullets: [
-      'Gained hands-on experience with REST APIs and Google Maps APIs.',
-      'Optimized app performance.',
+      'Integrated REST APIs and Google Maps into Flutter application features.',
+      'Improved responsiveness on map and list-heavy screens.',
     ],
+    technologies: ['Flutter', 'Dart', 'REST APIs', 'Google Maps'],
   },
   {
     title: 'Flutter Developer Intern',
     company: 'Inoxza Solutions (Pvt) Ltd',
     range: 'June 2021 – Dec 2021',
+    summary:
+      'Assisted in developing a Flutter inventory-management application and strengthened foundational mobile engineering skills.',
     bullets: [
-      'Assisted in developing a mobile application for inventory management.',
-      'Gained hands-on experience with state management and UI development in Flutter.',
+      'Contributed to inventory-management screens and application flows.',
+      'Gained hands-on experience with Flutter UI development and state management.',
     ],
+    technologies: ['Flutter', 'Dart'],
   },
 ]
 
@@ -63,88 +97,19 @@ export type KeyProjectHighlight = {
 }
 
 export type KeyProjectGroup = {
-  /** Aligns with home: e‑commerce, mobile, web/Capacitor. */
   domain: string
   intro?: string
   projects: KeyProjectHighlight[]
 }
 
+/** Legacy content retained for unused portfolio routes type-checking. */
 export const keyProjectHighlightGroups: KeyProjectGroup[] = [
   {
-    domain: 'Web apps & Capacitor',
-    intro: 'The same “web stack” called out on the home page: React, TypeScript, Vite, Tailwind, Firebase, and packaging with Capacitor for stores.',
-    projects: [
-      {
-        name: 'Affiliate + Google Analytics funnels',
-        points: [
-          'Landing and campaign pages structured so marketing can measure what converts, not just what loads.',
-          'Affiliate and tracking links wired without breaking the rest of the router or ad-blocker-safe assumptions where possible.',
-        ],
-      },
-      {
-        name: 'Portfolio & marketing sites',
-        points: [
-          'Fast, content-led sites (Vite + React) with clear routing, responsive layout, and Firebase Hosting for straightforward deploys.',
-          'Tighten typography, spacing, and CTA placement so the site matches how you pitch the product—not a generic template.',
-        ],
-      },
-      {
-        name: 'Web → iOS & Android (Capacitor)',
-        points: [
-          'Wrap an existing Vite/React web app in Capacitor, wire native project settings, and use plugins only where the browser falls short.',
-          'Prepare signed builds and checklist-style prep for App Store and Play Store submission from one JS codebase.',
-        ],
-      },
-    ],
-  },
-  {
-    domain: 'E‑commerce',
-    intro:
-      'E‑commerce web and mobile—different domains and constraints, with catalog, cart, and ordering that still have to work under real traffic.',
-    projects: [
-      {
-        name: 'E‑commerce grocery application',
-        points: [
-          'Late-stage UI polish and new features for catalog, cart, and ordering flows; kept Material patterns consistent as requirements tightened.',
-          'Triage and fixes for high-impact bugs that blocked or slowed releases; focused on checkout paths and day-to-day order flows.',
-          'Performance passes on scroll-heavy and list screens so the app stayed smooth on mid-range devices.',
-        ],
-      },
-    ],
-  },
-  {
     domain: 'Mobile (Flutter)',
-    intro: 'Production Flutter work: maps, reading/productivity, APIs, and getting builds through review.',
     projects: [
       {
-        name: 'PDF reader (optical / tablet use)',
-        points: [
-          'Built note-taking, bookmarks, and screen layouts that felt natural on tablets for long reading sessions.',
-          'Added Firebase Auth for sign-in, alongside sensible loading and error states for slow networks.',
-          'Tightened safe areas and touch targets for mixed portrait/landscape use in the field.',
-        ],
-      },
-      {
-        name: 'Gomi‑Map (part-time)',
-        points: [
-          'Shipped features in small, reviewable slices so the existing roadmap could keep moving without regressions.',
-          'Collaborated on UX tweaks with the product team: navigation, map-adjacent flows, and consistency across screens.',
-          'Bug-first when stability was at risk, then follow-up for polish once critical paths were solid.',
-        ],
-      },
-      {
-        name: 'Simple weather app (personal)',
-        points: [
-          'City search, live OpenWeather data, and Provider-based state with a clean, lightweight UI.',
-          'Theming and readability-first layout—good exercise in API + state shape without over-engineering.',
-        ],
-      },
-      {
-        name: 'Hardening & Play Store (various client apps)',
-        points: [
-          'Final pass debugging across Android builds: crashes, device quirks, and last-mile integration issues.',
-          'Supported store listings and deployment steps so apps actually reached testers and production users, not just dev devices.',
-        ],
+        name: 'Gomi-Map',
+        points: ['Feature delivery and UX improvements on a location-based Flutter app.'],
       },
     ],
   },

@@ -1,6 +1,9 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import heroPortrait from '../../assets/hero-portrait.png'
 import { profile } from '../../content/portfolio/profile'
+import { useHeaderPortrait } from '../portfolio/headerPortrait'
+import { ProgressiveImage } from '../ProgressiveImage'
 import { useTheme } from '../ThemeProvider'
 import { AvailabilityIndicator } from '../ui/AvailabilityIndicator'
 
@@ -52,6 +55,9 @@ function ThemeToggle() {
 }
 
 function BrandMark() {
+  const { inHeader } = useHeaderPortrait()
+  const reduce = useReducedMotion()
+
   return (
     <a
       href="#hero"
@@ -62,17 +68,35 @@ function BrandMark() {
       className="group flex items-center gap-3"
       aria-label="Kasun Tharanga — Home"
     >
-      <span
-        className="grid h-8 w-8 place-items-center border border-border bg-surface font-display text-[11px] font-medium tracking-[0.04em] text-fg transition group-hover:border-accent group-hover:text-accent"
-        aria-hidden
-      >
-        KT
+      <span className="relative grid h-8 w-8 shrink-0 place-items-center overflow-hidden border border-border bg-surface font-display text-[11px] font-medium tracking-[0.04em] text-fg transition group-hover:border-accent">
+        {inHeader ? (
+          <motion.div
+            layoutId={reduce ? undefined : 'hero-portrait-fly'}
+            className="absolute inset-0"
+            transition={
+              reduce ? undefined : { type: 'spring', stiffness: 420, damping: 38 }
+            }
+          >
+            <ProgressiveImage
+              src={heroPortrait}
+              alt=""
+              wrapperClassName="h-full w-full"
+              imgClassName="h-full w-full object-cover object-top"
+              decoding="async"
+              loading="eager"
+            />
+          </motion.div>
+        ) : (
+          <span className="transition group-hover:text-accent" aria-hidden>
+            KT
+          </span>
+        )}
       </span>
-      <span className="leading-tight">
-        <span className="block font-display text-[15px] font-medium tracking-[-0.01em] text-fg transition group-hover:text-accent">
+      <span className="leading-none">
+        <span className="block font-display text-base font-semibold tracking-[-0.03em] text-fg transition group-hover:text-accent sm:text-[1.125rem]">
           Kasun Tharanga
         </span>
-        <span className="mt-0.5 hidden text-[10px] uppercase tracking-[0.16em] text-muted sm:block">
+        <span className="mt-1 hidden text-[10px] font-medium uppercase tracking-[0.18em] text-muted sm:block">
           Software Engineer
         </span>
       </span>

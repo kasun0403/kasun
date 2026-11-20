@@ -5,7 +5,9 @@ export function Footer() {
     <footer>
       <div className="section-shell flex flex-col gap-5 border-t border-border py-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="font-display text-sm tracking-[-0.01em] text-fg">Kasun Tharanga</p>
+          <p className="font-display text-base font-semibold tracking-[-0.03em] text-fg">
+            Kasun Tharanga
+          </p>
           <p className="mt-1 text-xs text-muted">
             © {new Date().getFullYear()} {profile.name}
           </p>

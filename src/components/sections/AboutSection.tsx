@@ -1,3 +1,4 @@
+import { education } from '../../content/portfolio/education'
 import { portfolioStats } from '../../content/portfolio/stats'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
@@ -41,6 +42,37 @@ export function AboutSection() {
             </dl>
           </Reveal>
         </div>
+
+        <Reveal delay={0.12}>
+          <div className="mt-16 border-t border-border pt-12 md:mt-20 md:pt-14">
+            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted">
+              Education
+            </p>
+            <ul className="mt-8 space-y-0">
+              {education.map((item) => (
+                <li
+                  key={item.degree}
+                  className="grid gap-2 border-b border-border py-6 first:pt-0 last:border-b-0 sm:grid-cols-[7.5rem_1fr] sm:gap-8 sm:py-7"
+                >
+                  <span className="font-display text-sm tracking-[-0.02em] text-muted">
+                    {item.period}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-lg tracking-[-0.02em] text-fg sm:text-xl">
+                      {item.degree}
+                    </h3>
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-muted">
+                      {item.institution}
+                    </p>
+                    {item.detail ? (
+                      <p className="mt-1 text-sm text-muted">{item.detail}</p>
+                    ) : null}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

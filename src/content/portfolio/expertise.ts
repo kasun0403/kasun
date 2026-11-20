@@ -23,20 +23,34 @@ export const expertiseItems = [
 
 export const toolkitGroups = [
   {
+    number: '01',
     label: 'Frontend',
     items: ['React', 'TypeScript', 'JavaScript', 'Vite', 'Tailwind CSS'],
   },
   {
+    number: '02',
     label: 'Mobile',
     items: ['Flutter', 'Dart', 'Capacitor'],
   },
   {
-    label: 'Backend & Data',
-    items: ['Firebase', 'Firestore', 'REST APIs', 'Node.js'],
+    number: '03',
+    label: 'Backend',
+    items: ['Node.js', 'REST APIs'],
   },
   {
-    label: 'Tools & Delivery',
-    items: ['Git', 'GitHub', 'Vercel', 'Cloud Run', 'Xcode'],
+    number: '04',
+    label: 'Database & Cloud',
+    items: ['Firebase', 'Firestore', 'SQL', 'Cloud Run'],
+  },
+  {
+    number: '05',
+    label: 'Development Tools',
+    items: ['Git', 'GitHub', 'Xcode', 'VS Code'],
+  },
+  {
+    number: '06',
+    label: 'Deployment & Distribution',
+    items: ['Vercel', 'App Store Connect', 'Google Play Console'],
   },
 ] as const
 
