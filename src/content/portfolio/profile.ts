@@ -6,13 +6,13 @@ export const profile = {
   /** Alt text for the home hero portrait (professional headshot). */
   portraitAlt:
     'Kasun Tharanga Dilshan — professional portrait in a dark suit with a white shirt and university tie, facing the camera',
-  headline: 'Software engineer · Web & mobile',
-  location: 'Bandarawela, Sri Lanka',
+  headline: 'Software Engineer · Web & Mobile',
+  location: 'Sri Lanka',
   address: 'Bandarawela, Sri Lanka',
   phone: '+94 77 3068 777',
   /** E.164 for tel:/wa.me. */
   phoneE164: '+94773068777',
-  availabilityLabel: 'Open to opportunities (full‑time / contract)',
+  availabilityLabel: 'Available for opportunities',
   replyTimeLabel: '~24h',
   email: 'ktharanga1031@gmail.com',
   links: {
@@ -20,8 +20,12 @@ export const profile = {
     github: 'https://github.com/kasun0403',
   },
   positioning: {
+    statement: 'I build digital products that solve real problems.',
+    heroSupport:
+      'I design and develop web and mobile applications, connecting thoughtful user experiences with reliable engineering and production-ready technology.',
     shortBio:
       '5+ years shipping mobile and web: e‑commerce, affiliate + Google Analytics, and portfolio experiences with React, TypeScript, Vite, react-router-dom, Tailwind, Firebase, and Capacitor (web → iOS and Android). Flutter + Firebase for native mobile. Strong UI/UX, clean integrations, and production releases (stores, hosting, and hardening).',
+
     niches: ['Flutter + Firebase', 'Capacitor (web → mobile)', 'Store releases (iOS + Android)'] as const,
     /** How you work with AI tooling—teams, not a site disclaimer. */
     workWithAi: {
