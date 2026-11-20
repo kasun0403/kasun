@@ -1,5 +1,7 @@
-import { useEffect } from 'react'
+import { LayoutGroup, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { HeaderPortraitProvider } from '../components/portfolio/headerPortrait'
 import { Navbar } from '../components/sections/Navbar'
 import { HeroSection } from '../components/sections/HeroSection'
 import { AboutSection } from '../components/sections/AboutSection'
@@ -29,6 +31,12 @@ const pathToSection: Record<string, string> = {
 
 export default function HomePage() {
   const location = useLocation()
+  const { scrollY } = useScroll()
+  const [portraitInHeader, setPortraitInHeader] = useState(false)
+
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    setPortraitInHeader(y > 220)
+  })
 
   useEffect(() => {
     const fromPath = pathToSection[location.pathname]
@@ -45,17 +53,21 @@ export default function HomePage() {
   }, [location.pathname, location.hash])
 
   return (
-    <div className="min-h-dvh bg-bg text-fg">
-      <Navbar />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <ExpertiseSection />
-        <TechnologySection />
-        <ApproachSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <HeaderPortraitProvider inHeader={portraitInHeader}>
+      <LayoutGroup id="portrait-fly">
+        <div className="min-h-dvh bg-bg text-fg">
+          <Navbar />
+          <main>
+            <HeroSection />
+            <AboutSection />
+            <ExpertiseSection />
+            <TechnologySection />
+            <ApproachSection />
+            <ContactSection />
+          </main>
+          <Footer />
+        </div>
+      </LayoutGroup>
+    </HeaderPortraitProvider>
   )
 }

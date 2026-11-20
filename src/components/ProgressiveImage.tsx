@@ -22,7 +22,15 @@ export function ProgressiveImage({
   ...imgProps
 }: ProgressiveImageProps) {
   const reduceMotion = useReducedMotion()
+  const imgRef = React.useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = React.useState(false)
+
+  React.useEffect(() => {
+    const img = imgRef.current
+    if (img?.complete && img.naturalWidth > 0) {
+      setLoaded(true)
+    }
+  }, [imgProps.src])
 
   const handleLoad: React.ImgHTMLAttributes<HTMLImageElement>['onLoad'] = (e) => {
     setLoaded(true)
@@ -49,6 +57,7 @@ export function ProgressiveImage({
       />
       <img
         {...imgProps}
+        ref={imgRef}
         className={[
           className,
           imgClassName,
@@ -63,4 +72,3 @@ export function ProgressiveImage({
     </div>
   )
 }
-
